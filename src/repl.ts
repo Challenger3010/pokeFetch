@@ -9,7 +9,7 @@ export function cleanInput(input: string): string[]{
 	return pokemons;
 }
 
-export function startREPL(state: State){
+export async function startREPL(state: State){
 
 state.interface.prompt();
 
@@ -25,16 +25,16 @@ state.interface.on("line", async (input) => {
 	const cmd = state.commands[commandName];
 
 	if (! cmd){
-
-		console.log("Unknown command");
+		console.log(`Unknown command: "${commandName}". Type "help" for a list of commands.`);
 		state.interface.prompt();
 		return;
-
 	}
-	try{
 
-		cmd.callback(state);
+	try{
+		await cmd.callback(state);
+
 	} catch (e){
+
 		console.log(e);
 	}
 
