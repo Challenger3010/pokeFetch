@@ -1,4 +1,5 @@
 import * as readline from "readline";
+import { getCommands } from "./commands.js";
 
 export function cleanInput(input: string): string[]{
 	const pokemons = input
@@ -10,6 +11,8 @@ export function cleanInput(input: string): string[]{
 }
 
 export function startREPL(){
+
+const commands = getCommands();
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout,
@@ -26,7 +29,15 @@ rl.on("line", async (input) => {
 		return;
 	}
 
-	console.log(`Your command was: ${words[0]}`);
+	let command = commands[words[0]];
+
+	if (command){
+		command.callback(words.slice(1), commands);
+	}else{
+		console.log("Unknown command");
+	}
+
+
 	rl.prompt();
 });
 }
