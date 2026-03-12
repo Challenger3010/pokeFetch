@@ -1,5 +1,3 @@
-import { count } from "node:console";
-import { PokeApi } from "./pokeapi.js";
 import { State } from "./state.js";
 
 export async function commandMap(state: State){
@@ -13,7 +11,6 @@ export async function commandMap(state: State){
     }
 
 }
-
 
 export async function commandMapB(state: State) {
   if (!state.prevLocationsURL) {

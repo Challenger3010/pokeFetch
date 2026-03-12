@@ -23,6 +23,7 @@ state.interface.on("line", async (input) => {
 
 	const commandName = words[0]
 	const cmd = state.commands[commandName];
+	const args = words.slice(1);
 
 	if (! cmd){
 		console.log(`Unknown command: "${commandName}". Type "help" for a list of commands.`);
@@ -31,7 +32,7 @@ state.interface.on("line", async (input) => {
 	}
 
 	try{
-		await cmd.callback(state);
+		await cmd.callback(state, ...args);
 
 	} catch (e){
 
